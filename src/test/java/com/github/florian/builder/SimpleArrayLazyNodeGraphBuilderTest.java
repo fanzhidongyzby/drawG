@@ -3,19 +3,20 @@ package com.github.florian.builder;
 import com.github.florian.graph.Edge;
 import com.github.florian.graph.Graph;
 import com.github.florian.graph.Vertex;
-import com.sun.tools.javac.util.Assert;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 /**
- * Created by zhidong.fzd on 17/2/15.
+ * Created by zhidong.fzd on 17/4/6.
  */
-class SimpleArrayLazyNodeGraphBuilderTest {
-
+public class SimpleArrayLazyNodeGraphBuilderTest {
     GraphBuilder graphBuilder;
 
-    @org.junit.jupiter.api.BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         final Vertex vertex1 = new Vertex("v1");
         final Vertex vertex2 = new Vertex("v2");
         final Edge edge1 = new Edge(vertex1, vertex2, "e1", "v1");
@@ -30,17 +31,17 @@ class SimpleArrayLazyNodeGraphBuilderTest {
         graphBuilder = new SimpleArrayLazyNodeGraphBuilder(graph);
     }
 
-    @org.junit.jupiter.api.Test
-    void getVerticesString() {
+    @Test
+    public void getVerticesString() {
         final String verticesString = graphBuilder.getVerticesString();
-        Assert.checkNonNull(verticesString);
+        Assert.assertNotNull(verticesString);
         System.out.println("verticesString = \n" + verticesString);
     }
 
-    @org.junit.jupiter.api.Test
-    void getEdgesString() {
+    @Test
+    public void getEdgesString() {
         final String edgesString = graphBuilder.getEdgesString();
-        Assert.checkNonNull(edgesString);
+        Assert.assertNotNull(edgesString);
         System.out.println("edgesString = \n" + edgesString);
     }
 
