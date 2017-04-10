@@ -16,10 +16,9 @@ import com.github.florian.utils.TemplateProcessor;
 public class VisBasicGraphProcessor extends GraphProcessor {
 
     @Override
-    protected String getVerticesString(Graph graph) {
+    protected String getVerticesString(List<Vertex> vertices) {
         StringBuffer buffer = new StringBuffer();
 
-        final List<Vertex> vertices = graph.getVertices();
         for (Vertex vertex : vertices) {
             final String key = vertex.getKey();
             buffer.append(
@@ -29,10 +28,9 @@ public class VisBasicGraphProcessor extends GraphProcessor {
     }
 
     @Override
-    protected String getEdgesString(Graph graph) {
+    protected String getEdgesString(List<Edge> edges) {
         StringBuffer buffer = new StringBuffer();
 
-        final List<Edge> edges = graph.getEdges();
         for (Edge edge : edges) {
             final String source = edge.getSource().getKey();
             final String target = edge.getTarget().getKey();
@@ -44,10 +42,12 @@ public class VisBasicGraphProcessor extends GraphProcessor {
         return buffer.toString();
     }
 
-    protected boolean doProcess(String verticesString, String edgesString) {
+    protected boolean doProcess(String verticesString, String edgesString, Graph.Desc desc) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("nodes", verticesString);
         params.put("edges", edgesString);
+        params.put("directed", String.valueOf(desc.isDirected()));
+        params.put("layered", String.valueOf(desc.isLayered()));
 
         TemplateProcessor.processResource("vis.basic.template.html", "graph.html", params);
 

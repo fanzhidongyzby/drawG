@@ -33,14 +33,14 @@ public class VisBasicGraphProcessorTest {
 
     @Test
     public void getVerticesString() {
-        final String verticesString = graphProcessor.getVerticesString(graph);
+        final String verticesString = graphProcessor.getVerticesString(graph.getVertices());
         Assert.assertNotNull(verticesString);
         System.out.println(verticesString);
     }
 
     @Test
     public void getEdgesString() {
-        final String edgesString = graphProcessor.getEdgesString(graph);
+        final String edgesString = graphProcessor.getEdgesString(graph.getEdges());
         Assert.assertNotNull(edgesString);
         System.out.println(edgesString);
     }

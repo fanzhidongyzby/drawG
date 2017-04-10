@@ -32,14 +32,14 @@ public class SimpleArrayLazyNodeGraphProcessorTest {
 
     @Test
     public void getVerticesString() {
-        final String verticesString = graphBuilder.getVerticesString(graph);
+        final String verticesString = graphBuilder.getVerticesString(graph.getVertices());
         Assert.assertNotNull(verticesString);
         System.out.println("verticesString = \n" + verticesString);
     }
 
     @Test
     public void getEdgesString() {
-        final String edgesString = graphBuilder.getEdgesString(graph);
+        final String edgesString = graphBuilder.getEdgesString(graph.getEdges());
         Assert.assertNotNull(edgesString);
         System.out.println("edgesString = \n" + edgesString);
     }

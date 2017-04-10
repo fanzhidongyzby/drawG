@@ -17,6 +17,8 @@ public class TreeGraphGenerator extends GraphGenerator {
     private List<String> firstLeaf = new ArrayList<String>();
 
     public TreeGraphGenerator() {
+        graph.getDesc().setDirected(true);
+        graph.getDesc().setLayered(true);
         this.depth = Config.getInt("generator.tree.depth", 5);
         this.firstOutDegree = Config.getInt("generator.tree.degree.first", 10);
         this.otherOutDegree = Config.getInt("generator.tree.degree.other", 10);

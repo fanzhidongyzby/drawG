@@ -40,21 +40,22 @@ ${edges}
 
     var options = {
         nodes: {
-//            color: 'black',
-//            font: {
-//                color: 'black',
-//            },
+            color: 'black',
+            font: {
+                color: 'black',
+            },
             shape: 'circle',
             shadow: true,
         },
         edges: {
             smooth: false,
             arrows: {
-                to: true,
+                to: ${directed},
             }
         },
         layout:{
             hierarchical: {
+                enabled: ${layered},
                 sortMethod: 'directed',
                 improvedLayout: true
             }

@@ -13,10 +13,9 @@ import com.github.florian.utils.StringFormatter;
 public class SimpleArrayLazyNodeGraphProcessor extends GraphProcessor {
 
     @Override
-    protected String getVerticesString(Graph graph) {
+    protected String getVerticesString(List<Vertex> vertices) {
         StringBuffer buffer = new StringBuffer();
 
-        final List<Vertex> vertices = graph.getVertices();
         for (Vertex vertex : vertices) {
             final String key = vertex.getKey();
             buffer.append(StringFormatter.format("  '{}', \n", key));
@@ -25,10 +24,9 @@ public class SimpleArrayLazyNodeGraphProcessor extends GraphProcessor {
     }
 
     @Override
-    protected String getEdgesString(Graph graph) {
+    protected String getEdgesString(List<Edge> edges) {
         StringBuffer buffer = new StringBuffer();
 
-        final List<Edge> edges = graph.getEdges();
         for (Edge edge : edges) {
             final String source = edge.getSource().getKey();
             final String target = edge.getTarget().getKey();
@@ -42,7 +40,7 @@ public class SimpleArrayLazyNodeGraphProcessor extends GraphProcessor {
         return StringFormatter.format("[\n{}]\n", buffer.toString());
     }
 
-    protected boolean doProcess(String verticesString, String edgesString) {
+    protected boolean doProcess(String verticesString, String edgesString, Graph.Desc desc) {
         LOG.info("graph vertices:");
         LOG.info("\n" + verticesString);
         LOG.info("graph edges:");

@@ -10,10 +10,9 @@ import java.util.List;
 public class Graph {
 
     String       name;
-
     List<Vertex> vertices = new ArrayList<Vertex>();
-
     List<Edge>   edges    = new ArrayList<Edge>();
+    Desc         desc     = new Desc();
 
     public Graph() {
     }
@@ -46,10 +45,41 @@ public class Graph {
         this.edges = edges;
     }
 
+    public Desc getDesc() {
+        return desc;
+    }
+
+    public void setDesc(Desc desc) {
+        this.desc = desc;
+    }
+
     @Override
     public String toString() {
         return "Graph{" + "key='" + name + '\'' + ", vertices="
                + Arrays.toString(vertices.toArray()) + ", edges=" + Arrays.toString(edges.toArray())
                + '}';
+    }
+
+    public static class Desc {
+
+        boolean directed;
+
+        boolean layered;
+
+        public boolean isDirected() {
+            return directed;
+        }
+
+        public void setDirected(boolean directed) {
+            this.directed = directed;
+        }
+
+        public boolean isLayered() {
+            return layered;
+        }
+
+        public void setLayered(boolean layered) {
+            this.layered = layered;
+        }
     }
 }
