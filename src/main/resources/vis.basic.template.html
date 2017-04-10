@@ -7,7 +7,7 @@
         body{
             text-align:center;
         }
-        /*#abs_evenly_g {*/
+        /*#canvas {*/
             /*margin:0 auto;*/
             /*width: 600px;*/
             /*height: 600px;*/
@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-<div id="abs_evenly_g"></div>
+<div id="canvas"></div>
 
 <script type="text/javascript">
     // create an array with nodes
@@ -30,7 +30,7 @@ ${edges}
     ]);
 
     // create a network
-    var container = document.getElementById('abs_evenly_g');
+    var container = document.getElementById('canvas');
 
     // provide the data in the vis format
     var data = {
@@ -54,6 +54,7 @@ ${edges}
             }
         },
         layout:{
+            randomSeed: 0,
             hierarchical: {
                 enabled: ${layered},
                 sortMethod: 'directed',
