@@ -1,0 +1,58 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        body{
+            text-align:center;
+        }
+        #abs_evenly_g {
+            margin:0 auto;
+            width: 600px;
+            height: 600px;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+<div id="abs_evenly_g"></div>
+
+<script type="text/javascript">
+    // create an array with nodes
+    var nodes = new vis.DataSet([
+${nodes}
+    ]);
+
+    // create an array with edges
+    var edges = new vis.DataSet([
+${edges}
+    ]);
+
+    // create a network
+    var container = document.getElementById('abs_evenly_g');
+
+    // provide the data in the vis format
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {
+        nodes: {
+            color: 'black',
+            font: {
+                color: 'black',
+            },
+            shape: 'circle',
+            shadow: true,
+        },
+        edges: {
+            smooth: false
+        }
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+</script>
+</body>
+</html>
