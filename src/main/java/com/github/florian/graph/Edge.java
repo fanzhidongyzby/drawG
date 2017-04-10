@@ -13,16 +13,9 @@ public class Edge {
 
     Object value;
 
-    public Edge(String start, String end) {
-        this(start, end, null);
+    public Edge(Vertex source, Vertex target) {
+        this(source, target,null);
     }
-
-    public Edge(String start, String end, String key) {
-        source = new Vertex(start);
-        target = new Vertex(end);
-        this.key = key;
-    }
-
     public Edge(Vertex source, Vertex target, String key) {
         this(source, target, key, null);
     }

@@ -1,4 +1,4 @@
-package com.github.florian.builder;
+package com.github.florian.processor;
 
 import java.util.List;
 
@@ -10,14 +10,10 @@ import com.github.florian.utils.StringFormatter;
 /**
  * Created by zhidong.fzd on 17/2/15.
  */
-public class SimpleArrayLazyNodeGraphBuilder extends GraphBuilder {
-
-    public SimpleArrayLazyNodeGraphBuilder(Graph graph) {
-        super(graph);
-    }
+public class SimpleArrayLazyNodeGraphProcessor extends GraphProcessor {
 
     @Override
-    public String getVerticesString() {
+    protected String getVerticesString(Graph graph) {
         StringBuffer buffer = new StringBuffer();
 
         final List<Vertex> vertices = graph.getVertices();
@@ -29,7 +25,7 @@ public class SimpleArrayLazyNodeGraphBuilder extends GraphBuilder {
     }
 
     @Override
-    public String getEdgesString() {
+    protected String getEdgesString(Graph graph) {
         StringBuffer buffer = new StringBuffer();
 
         final List<Edge> edges = graph.getEdges();
@@ -44,5 +40,15 @@ public class SimpleArrayLazyNodeGraphBuilder extends GraphBuilder {
         }
 
         return StringFormatter.format("[\n{}]\n", buffer.toString());
+    }
+
+    protected boolean doProcess(String verticesString, String edgesString) {
+        LOG.info("graph vertices:");
+        LOG.info("\n" + verticesString);
+        LOG.info("graph edges:");
+        LOG.info("\n" + edgesString);
+        LOG.info("visit http://live.yworks.com/yfiles-for-html/2.0/databinding/graphbuilder/index.html and paste the info to view graph");
+
+        return true;
     }
 }

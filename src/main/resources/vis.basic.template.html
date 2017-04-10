@@ -7,12 +7,12 @@
         body{
             text-align:center;
         }
-        #abs_evenly_g {
-            margin:0 auto;
-            width: 600px;
-            height: 600px;
-            border: 1px solid lightgray;
-        }
+        /*#abs_evenly_g {*/
+            /*margin:0 auto;*/
+            /*width: 600px;*/
+            /*height: 600px;*/
+            /*border: 1px solid lightgray;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -37,17 +37,27 @@ ${edges}
         nodes: nodes,
         edges: edges
     };
+
     var options = {
         nodes: {
-            color: 'black',
-            font: {
-                color: 'black',
-            },
+//            color: 'black',
+//            font: {
+//                color: 'black',
+//            },
             shape: 'circle',
             shadow: true,
         },
         edges: {
-            smooth: false
+            smooth: false,
+            arrows: {
+                to: true,
+            }
+        },
+        layout:{
+            hierarchical: {
+                sortMethod: 'directed',
+                improvedLayout: true
+            }
         }
     };
 

@@ -1,10 +1,6 @@
 package com.github.florian.generator;
 
-import com.github.florian.builder.GraphBuilder;
-import com.github.florian.builder.VisBasicGraphBuilder;
-import com.github.florian.graph.Edge;
-import com.github.florian.graph.Graph;
-import com.github.florian.graph.Vertex;
+import com.github.florian.utils.Config;
 
 /**
  * Created by zhidong.fzd on 17/4/1.
@@ -14,27 +10,16 @@ public class EvenlyGraphGenerator extends GraphGenerator {
     private final int count;
     private final int degree;
 
-    public EvenlyGraphGenerator(int count, int degree) {
-
-        this.count = count;
-        this.degree = degree;
-    }
-
-    private void genVertex(int id) {
-        graph.getVertices().add(new Vertex(String.valueOf(id)));
-    }
-
-    private void genEdge(int start, int end) {
-        if (start < end) {
-            graph.getEdges().add(new Edge(String.valueOf(start), String.valueOf(end)));
-        }
+    public EvenlyGraphGenerator() {
+        this.count = Config.getInt("generator.evenly.count", 5);
+        this.degree = Config.getInt("generator.evenly.degree", 10);
     }
 
     @Override
-    public boolean generate() {
+    protected boolean doGenerate() {
 
         if (!(count > 0 && degree >= 0 && degree < count)) {
-            System.out.println("Invalid arguments !");
+            LOG.error("Invalid arguments !");
             return false;
         }
 
@@ -47,7 +32,7 @@ public class EvenlyGraphGenerator extends GraphGenerator {
         }
 
         if (count % 2 == 1 && degree % 2 != 0) {
-            System.out.println("Degree should be odd when vertices' count is even !");
+            LOG.error("Degree should be odd when vertices' count is even !");
             return false;
         }
 

@@ -1,4 +1,4 @@
-package com.github.florian.builder;
+package com.github.florian.processor;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,8 +11,9 @@ import com.github.florian.graph.Vertex;
 /**
  * Created by zhidong.fzd on 17/4/6.
  */
-public class VisBasicGraphBuilderTest {
-    GraphBuilder graphBuilder;
+public class VisBasicGraphProcessorTest {
+    GraphProcessor graphProcessor;
+    Graph graph;
 
     @Before
     public void setUp() {
@@ -27,19 +28,19 @@ public class VisBasicGraphBuilderTest {
         graph.getEdges().add(edge1);
         graph.getEdges().add(edge2);
 
-        graphBuilder = new VisBasicGraphBuilder(graph);
+        graphProcessor = new VisBasicGraphProcessor();
     }
 
     @Test
     public void getVerticesString() {
-        final String verticesString = graphBuilder.getVerticesString();
+        final String verticesString = graphProcessor.getVerticesString(graph);
         Assert.assertNotNull(verticesString);
         System.out.println(verticesString);
     }
 
     @Test
     public void getEdgesString() {
-        final String edgesString = graphBuilder.getEdgesString();
+        final String edgesString = graphProcessor.getEdgesString(graph);
         Assert.assertNotNull(edgesString);
         System.out.println(edgesString);
     }
