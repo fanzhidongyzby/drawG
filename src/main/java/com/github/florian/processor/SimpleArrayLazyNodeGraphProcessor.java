@@ -4,16 +4,17 @@ import java.util.List;
 
 import com.github.florian.graph.Edge;
 import com.github.florian.graph.Graph;
+import com.github.florian.graph.Point;
 import com.github.florian.graph.Vertex;
 import com.github.florian.utils.StringFormatter;
 
 /**
  * Created by zhidong.fzd on 17/2/15.
  */
-public class SimpleArrayLazyNodeGraphProcessor extends GraphProcessor {
+public class SimpleArrayLazyNodeGraphProcessor extends AbstractGraphProcessor {
 
     @Override
-    protected String getVerticesString(List<Vertex> vertices) {
+    protected String getVerticesString(List<Vertex> vertices, Point origin) {
         StringBuffer buffer = new StringBuffer();
 
         for (Vertex vertex : vertices) {
@@ -24,7 +25,7 @@ public class SimpleArrayLazyNodeGraphProcessor extends GraphProcessor {
     }
 
     @Override
-    protected String getEdgesString(List<Edge> edges) {
+    protected String getEdgesString(List<Edge> edges, Point origin) {
         StringBuffer buffer = new StringBuffer();
 
         for (Edge edge : edges) {

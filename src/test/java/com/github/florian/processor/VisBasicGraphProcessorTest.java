@@ -1,5 +1,6 @@
 package com.github.florian.processor;
 
+import com.github.florian.graph.Point;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import com.github.florian.graph.Vertex;
  * Created by zhidong.fzd on 17/4/6.
  */
 public class VisBasicGraphProcessorTest {
-    GraphProcessor graphProcessor;
+    AbstractGraphProcessor processor;
     Graph graph;
 
     @Before
@@ -28,19 +29,19 @@ public class VisBasicGraphProcessorTest {
         graph.getEdges().add(edge1);
         graph.getEdges().add(edge2);
 
-        graphProcessor = new VisBasicGraphProcessor();
+        processor = new VisBasicGraphProcessor();
     }
 
     @Test
     public void getVerticesString() {
-        final String verticesString = graphProcessor.getVerticesString(graph.getVertices());
+        final String verticesString = processor.getVerticesString(graph.getVertices(), new Point());
         Assert.assertNotNull(verticesString);
         System.out.println(verticesString);
     }
 
     @Test
     public void getEdgesString() {
-        final String edgesString = graphProcessor.getEdgesString(graph.getEdges());
+        final String edgesString = processor.getEdgesString(graph.getEdges(), new Point());
         Assert.assertNotNull(edgesString);
         System.out.println(edgesString);
     }

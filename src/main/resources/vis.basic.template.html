@@ -7,12 +7,12 @@
         body{
             text-align:center;
         }
-        /*#canvas {*/
-            /*margin:0 auto;*/
-            /*width: 600px;*/
-            /*height: 600px;*/
-            /*border: 1px solid lightgray;*/
-        /*}*/
+        #canvas1 {
+            margin:0 auto;
+            width: 600px;
+            height: 600px;
+            border: 1px solid lightgray;
+        }
     </style>
 </head>
 <body>
@@ -39,10 +39,12 @@ ${edges}
     };
 
     var options = {
+        physics:false,
         nodes: {
             color: 'black',
             font: {
-                color: 'black',
+                color: 'white',
+                align: 'right',
             },
             shape: 'circle',
             shadow: true,
@@ -50,17 +52,18 @@ ${edges}
         edges: {
             smooth: false,
             arrows: {
-                to: ${directed},
+//                to: true,
+//                to: ${directed},
             }
         },
-        layout:{
-            randomSeed: 0,
-            hierarchical: {
-                enabled: ${layered},
-                sortMethod: 'directed',
-                improvedLayout: true
-            }
-        }
+//        layout:{
+//            randomSeed: 0,
+//            improvedLayout: true,
+//            hierarchical: {
+//                enabled: ${layered},
+//                sortMethod: 'directed',
+//            }
+//        }
     };
 
     // initialize your network!

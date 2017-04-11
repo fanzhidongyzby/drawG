@@ -1,5 +1,7 @@
 package com.github.florian.graph;
 
+import com.github.florian.Main;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,11 +62,13 @@ public class Graph {
                + '}';
     }
 
-    public static class Desc {
+    public class Desc {
 
         boolean directed;
 
         boolean layered;
+
+        Point origin = new Point();
 
         public boolean isDirected() {
             return directed;
@@ -80,6 +84,14 @@ public class Graph {
 
         public void setLayered(boolean layered) {
             this.layered = layered;
+        }
+
+        public Point getOrigin() {
+            return origin;
+        }
+
+        public void setOrigin(Point origin) {
+            this.origin = origin;
         }
     }
 }

@@ -1,14 +1,20 @@
 package com.github.florian.generator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.github.florian.graph.Edge;
+import com.github.florian.graph.Vertex;
 import com.github.florian.utils.Config;
 
 /**
  * Created by zhidong.fzd on 17/4/1.
  */
-public class TreeGraphGenerator extends GraphGenerator {
+public class TreeGraphGenerator extends AbstractGraphGenerator {
+
+    private Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
 
     private final int    depth;
     private final int    firstOutDegree;
@@ -25,6 +31,13 @@ public class TreeGraphGenerator extends GraphGenerator {
         this.inDegree = Config.getInt("generator.tree.degree.in", 10);
     }
 
+    private String genVertexKey() {
+        final Vertex vertex = super.genVertex();
+        final String key = vertex.getKey();
+        vertexMap.put(key, vertex);
+        return key;
+    }
+
     /**
      * 产生outDegree个子节点
      * @param outDegree
@@ -33,7 +46,7 @@ public class TreeGraphGenerator extends GraphGenerator {
     private List<String> genChildren(int outDegree) {
         List<String> children = new ArrayList<String>(outDegree);
         for (int j = 0; j < outDegree; j++) {
-            final String child = genVertex().getKey();
+            final String child = genVertexKey();
             children.add(child);
         }
 
@@ -48,10 +61,20 @@ public class TreeGraphGenerator extends GraphGenerator {
     private void combineChildren(List<String> roots, List<String> children) {
         for (String root : roots) {
             for (String child : children) {
-                genEdge(root, child);
+                genEdge(vertexMap.get(root), vertexMap.get(child));
             }
         }
     }
+
+    private static  int edgeID;
+//    protected Edge genEdge(String start, String end) {
+//        edgeID++;
+//        if (edgeID % 2 != 0) {
+//            return null;
+//        } else {
+//            return super.genEdge(start, end);
+//        }
+//    }
 
     /**
      * 逐级生成子树
@@ -112,7 +135,7 @@ public class TreeGraphGenerator extends GraphGenerator {
 
     /**
      * 生成图测试数据
-     * 点数／边数：inDegree * (1 + firstOutDegree * (1 - otherOutDegree ^ depth) / (1 - otherOutDegree))
+     * 点数／边数：inDegree * (firstOutDegree * (1 - otherOutDegree ^ depth) / (1 - otherOutDegree))
      * ~= inDegree * firstOutDegree * otherOutDegree ^ (depth - 1)
      */
     @Override
@@ -130,17 +153,6 @@ public class TreeGraphGenerator extends GraphGenerator {
         // 生成树根
         List<String> roots = new ArrayList<String>();
         genSubTree(roots, 0);
-
-        // 生成回边
-//        for (int i = 0; i < roots.size(); i++) {
-//            String root = roots.get(i);
-//            genEdge(firstLeaf.get(i), root);
-//        }
-        for (int i = 0; i < roots.size(); i++) {
-            String root = roots.get(i);
-            genEdge(firstLeaf.get(i), genVertex("-> " + root).getKey());
-        }
-
 
         return true;
     }

@@ -3,7 +3,7 @@ package com.github.florian;
 import com.github.florian.factory.GeneratorFactory;
 import com.github.florian.factory.ProcessorFactory;
 import com.github.florian.generator.GraphGenerator;
-import com.github.florian.graph.Graph;
+import com.github.florian.processor.AbstractGraphProcessor;
 import com.github.florian.processor.GraphProcessor;
 
 /**
@@ -17,8 +17,7 @@ public class Main {
         GraphProcessor processor = ProcessorFactory.create();
 
         if (generator.generate()) {
-            final Graph graph = generator.getGraph();
-            processor.process(graph);
+            processor.process(generator.getGraphList());
         }
 
     }

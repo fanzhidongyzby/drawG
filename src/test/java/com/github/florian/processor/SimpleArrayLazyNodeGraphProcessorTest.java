@@ -2,6 +2,7 @@ package com.github.florian.processor;
 
 import com.github.florian.graph.Edge;
 import com.github.florian.graph.Graph;
+import com.github.florian.graph.Point;
 import com.github.florian.graph.Vertex;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +12,7 @@ import org.junit.Test;
  * Created by zhidong.fzd on 17/4/6.
  */
 public class SimpleArrayLazyNodeGraphProcessorTest {
-    GraphProcessor graphBuilder;
+    AbstractGraphProcessor processor;
     Graph graph;
 
     @Before
@@ -27,19 +28,19 @@ public class SimpleArrayLazyNodeGraphProcessorTest {
         graph.getEdges().add(edge1);
         graph.getEdges().add(edge2);
 
-        graphBuilder = new SimpleArrayLazyNodeGraphProcessor();
+        processor = new SimpleArrayLazyNodeGraphProcessor();
     }
 
     @Test
     public void getVerticesString() {
-        final String verticesString = graphBuilder.getVerticesString(graph.getVertices());
+        final String verticesString = processor.getVerticesString(graph.getVertices(), new Point());
         Assert.assertNotNull(verticesString);
         System.out.println("verticesString = \n" + verticesString);
     }
 
     @Test
     public void getEdgesString() {
-        final String edgesString = graphBuilder.getEdgesString(graph.getEdges());
+        final String edgesString = processor.getEdgesString(graph.getEdges(), new Point());
         Assert.assertNotNull(edgesString);
         System.out.println("edgesString = \n" + edgesString);
     }
