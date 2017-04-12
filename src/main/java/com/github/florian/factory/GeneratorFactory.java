@@ -11,7 +11,7 @@ import com.github.florian.utils.Config;
  * Created by zhidong.fzd on 17/4/10.
  */
 public class GeneratorFactory {
-    public static GraphGenerator create() {
+    public static GraphGenerator getDefaultGenerator() {
         GraphGenerator generator = null;
 
         final String name = Config.getString("generator.class", "");

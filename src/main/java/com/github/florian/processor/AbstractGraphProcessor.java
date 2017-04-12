@@ -6,36 +6,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.florian.generator.MultiEvenlyGraphGenerator;
-import com.github.florian.graph.Edge;
-import com.github.florian.graph.Graph;
-import com.github.florian.graph.Point;
-import com.github.florian.graph.Vertex;
+import com.github.florian.generator.GraphGenerator;
+import com.github.florian.generator.MultiGraphGenerator;
+import com.github.florian.generator.SingleGraphGenerator;
+import com.github.florian.graph.*;
 import com.github.florian.utils.Config;
 
 /**
  * Created by zhidong.fzd on 17/2/15.
  */
 public abstract class AbstractGraphProcessor implements GraphProcessor {
-    protected static final Logger LOG           = LoggerFactory
-        .getLogger(AbstractGraphProcessor.class);
-    boolean                       multipleGraph = Config.getString("generator.class", "")
-        .equals(MultiEvenlyGraphGenerator.class.getCanonicalName());
-
-    int xGap = Config.getInt("processor.vis.basic.x.gap", 100);
-    int yGap = Config.getInt("processor.vis.basic.y.gap", 100);
-
-
-    private void processSingleGraph(Graph graph) {
-        final String verticesString = getVerticesString(graph.getVertices(),
-            graph.getDesc().getOrigin());
-        final String edgesString = getEdgesString(graph.getEdges(), graph.getDesc().getOrigin());
-        if (doProcess(verticesString, edgesString, graph.getDesc())) {
-            LOG.info("graph process ok");
-        } else {
-            LOG.info("graph process failed");
-        }
-    }
+    protected static final Logger LOG = LoggerFactory.getLogger(AbstractGraphProcessor.class);
 
     private ArrayList<Integer> splitList(int size, int row) {
         ArrayList<Integer> rows = new ArrayList<Integer>();
@@ -55,8 +36,21 @@ public abstract class AbstractGraphProcessor implements GraphProcessor {
         return rows;
     }
 
-    private void processMultipleGraph(List<Graph> graphs, Graph.Desc desc) {
+    private void processSingleGraph(Graph graph, Desc desc) {
+        final String verticesString = getVerticesString(graph.getVertices(),
+            graph.getDesc().getOrigin());
+        final String edgesString = getEdgesString(graph.getEdges(), graph.getDesc().getOrigin());
+        if (doProcess(verticesString, edgesString, desc)) {
+            LOG.info("graph process ok");
+        } else {
+            LOG.info("graph process failed");
+        }
+    }
+
+    private void processMultipleGraph(List<Graph> graphs, Desc desc) {
         int rowCount = Config.getInt("row.count", 1);
+        int xGap = Config.getInt("processor.vis.basic.x.gap", 100);
+        int yGap = Config.getInt("processor.vis.basic.y.gap", 100);
 
         final ArrayList<Integer> rows = splitList(graphs.size(), rowCount);
 
@@ -90,15 +84,17 @@ public abstract class AbstractGraphProcessor implements GraphProcessor {
         }
     }
 
-    public void process(List<Graph> graphs) {
-        Graph graph = new Graph();
-        if (!graphs.isEmpty()) {
-            graph = graphs.get(0);
-        }
-        if (multipleGraph) {
-            processMultipleGraph(graphs, graph.getDesc());
+    public void process(GraphGenerator generator) {
+        final boolean multiple = MultiGraphGenerator.class.isAssignableFrom(generator.getClass());
+
+        if (multiple) {
+            final MultiGraphGenerator multiGraphGenerator = (MultiGraphGenerator) generator;
+            final List<Graph> graphs = multiGraphGenerator.generate();
+            processMultipleGraph(graphs, multiGraphGenerator.getDesc());
         } else {
-            processSingleGraph(graph);
+            final SingleGraphGenerator singleGraphGenerator = (SingleGraphGenerator) generator;
+            final Graph graph = singleGraphGenerator.generate();
+            processSingleGraph(graph, singleGraphGenerator.getDesc());
         }
     }
 
@@ -106,7 +102,6 @@ public abstract class AbstractGraphProcessor implements GraphProcessor {
 
     protected abstract String getEdgesString(List<Edge> edges, Point origin);
 
-    protected abstract boolean doProcess(String verticesString, String edgesString,
-                                         Graph.Desc desc);
+    protected abstract boolean doProcess(String verticesString, String edgesString, Desc desc);
 
 }

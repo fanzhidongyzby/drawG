@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.florian.graph.Desc;
 import com.github.florian.graph.Edge;
-import com.github.florian.graph.Graph;
 import com.github.florian.graph.Point;
 import com.github.florian.graph.Vertex;
 import com.github.florian.utils.Config;
@@ -36,8 +36,8 @@ public class VisBasicGraphProcessor extends AbstractGraphProcessor {
         double r = l / 2 / Math.sin(pi / n);
         double init = (n % 2 != 0) ? pi / 2 : pi / 2 - pi / n;
         double angle = init - 2 * pi / n * index;
-        double y = -Math.sin(angle) * r + origin.getY();
-        double x = Math.cos(angle) * r + origin.getX();
+        double y = -Math.sin(angle) * r + origin.getY() + r;
+        double x = Math.cos(angle) * r + origin.getX() + r;
         return "x: " + x + ", y:" + y;
     }
 
@@ -50,7 +50,7 @@ public class VisBasicGraphProcessor extends AbstractGraphProcessor {
         int i = 0;
         for (Vertex vertex : vertices) {
             final String key = vertex.getKey();
-            final String value = (String)vertex.getValue();
+            final String value = (String) vertex.getValue();
             buffer.append(StringFormatter.format("                {id: '{}', label: '{}', {}},\n",
                 key, value, getPosition(vertexCount, edgeLength, i++, origin)));
         }
@@ -76,7 +76,7 @@ public class VisBasicGraphProcessor extends AbstractGraphProcessor {
         return buffer.toString();
     }
 
-    protected boolean doProcess(String verticesString, String edgesString, Graph.Desc desc) {
+    protected boolean doProcess(String verticesString, String edgesString, Desc desc) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("nodes", verticesString);
         params.put("edges", edgesString);

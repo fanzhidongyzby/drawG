@@ -4,7 +4,7 @@ A light tool of converting Java Graph Object to vertices and edges text, which c
 
 ### Usage
 ```java
-// create graph builder
+getDefaultProcessor
 GraphBuilder graphBuilder = new SimpleArrayLazyNodeGraphBuilder(new Graph());
 
 // get vertices string

@@ -5,37 +5,48 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.florian.graph.Edge;
 import com.github.florian.graph.Vertex;
 import com.github.florian.utils.Config;
 
 /**
  * Created by zhidong.fzd on 17/4/1.
  */
-public class TreeGraphGenerator extends AbstractGraphGenerator {
+public class TreeGraphGenerator extends SingleGraphGenerator {
 
+    protected int               inDegree;
+    private int                 depth;
+    private int                 firstOutDegree;
+    private int                 otherOutDegree;
     private Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
-
-    private final int    depth;
-    private final int    firstOutDegree;
-    private final int    otherOutDegree;
-    private final int    inDegree;
-    private List<String> firstLeaf = new ArrayList<String>();
+    private List<String>        firstLeaf = new ArrayList<String>();
+    private int                 vertexID  = 0;
 
     public TreeGraphGenerator() {
-        graph.getDesc().setDirected(true);
-        graph.getDesc().setLayered(true);
-        this.depth = Config.getInt("generator.tree.depth", 5);
-        this.firstOutDegree = Config.getInt("generator.tree.degree.first", 10);
-        this.otherOutDegree = Config.getInt("generator.tree.degree.other", 10);
-        this.inDegree = Config.getInt("generator.tree.degree.in", 10);
+        this(Config.getInt("generator.tree.depth", 5),
+            Config.getInt("generator.tree.degree.first", 10),
+            Config.getInt("generator.tree.degree.other", 10),
+            Config.getInt("generator.tree.degree.in", 10));
+
+    }
+
+    public TreeGraphGenerator(int depth, int firstOutDegree, int otherOutDegree) {
+        this(depth, firstOutDegree, otherOutDegree, 1);
+    }
+
+    public TreeGraphGenerator(int depth, int firstOutDegree, int otherOutDegree, int inDegree) {
+        desc.setDirected(true);
+        desc.setLayered(true);
+        this.depth = depth;
+        this.firstOutDegree = firstOutDegree;
+        this.otherOutDegree = otherOutDegree;
+        this.inDegree = inDegree;
     }
 
     private String genVertexKey() {
-        final Vertex vertex = super.genVertex();
-        final String key = vertex.getKey();
-        vertexMap.put(key, vertex);
-        return key;
+        String id = String.valueOf(vertexID++);
+        final Vertex vertex = genVertex(id);
+        vertexMap.put(id, vertex);
+        return id;
     }
 
     /**
@@ -61,20 +72,10 @@ public class TreeGraphGenerator extends AbstractGraphGenerator {
     private void combineChildren(List<String> roots, List<String> children) {
         for (String root : roots) {
             for (String child : children) {
-                genEdge(vertexMap.get(root), vertexMap.get(child));
+                genEdge(root, child);
             }
         }
     }
-
-    private static  int edgeID;
-//    protected Edge genEdge(String start, String end) {
-//        edgeID++;
-//        if (edgeID % 2 != 0) {
-//            return null;
-//        } else {
-//            return super.genEdge(start, end);
-//        }
-//    }
 
     /**
      * 逐级生成子树
@@ -131,6 +132,10 @@ public class TreeGraphGenerator extends AbstractGraphGenerator {
             }
 
         }
+    }
+
+    protected void genEdge(String start, String end) {
+        genEdge(vertexMap.get(start), vertexMap.get(end));
     }
 
     /**

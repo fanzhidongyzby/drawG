@@ -1,21 +1,19 @@
 package com.github.florian.generator;
 
-import com.github.florian.graph.Edge;
-import com.github.florian.graph.Vertex;
-import com.github.florian.utils.Config;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.github.florian.graph.Vertex;
+import com.github.florian.utils.Config;
 
 /**
  * Created by zhidong.fzd on 17/4/1.
  */
-public class EvenlyGraphGenerator extends AbstractGraphGenerator {
+public class EvenlyGraphGenerator extends SingleGraphGenerator {
 
+    private final int            count;
+    private final int            degree;
     private Map<Integer, Vertex> vertexMap = new HashMap<Integer, Vertex>();
-
-    private final int count;
-    private final int degree;
 
     public EvenlyGraphGenerator() {
         this.count = Config.getInt("generator.evenly.count", 5);
@@ -74,10 +72,9 @@ public class EvenlyGraphGenerator extends AbstractGraphGenerator {
         return true;
     }
 
-    protected Edge genEdge(int start, int end) {
+    protected void genEdge(int start, int end) {
         if (start < end) {
-            return super.genEdge(vertexMap.get(start), vertexMap.get(end));
+            super.genEdge(vertexMap.get(start), vertexMap.get(end));
         }
-        return null;
     }
 }

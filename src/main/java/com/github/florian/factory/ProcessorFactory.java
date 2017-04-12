@@ -9,7 +9,7 @@ import com.github.florian.utils.Config;
  * Created by zhidong.fzd on 17/4/10.
  */
 public class ProcessorFactory {
-    public static GraphProcessor create() {
+    public static GraphProcessor getDefaultProcessor() {
         GraphProcessor processor = null;
 
         final String name = Config.getString("processor.class", "");

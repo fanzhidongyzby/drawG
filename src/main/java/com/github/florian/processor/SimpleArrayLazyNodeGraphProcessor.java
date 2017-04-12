@@ -2,8 +2,8 @@ package com.github.florian.processor;
 
 import java.util.List;
 
+import com.github.florian.graph.Desc;
 import com.github.florian.graph.Edge;
-import com.github.florian.graph.Graph;
 import com.github.florian.graph.Point;
 import com.github.florian.graph.Vertex;
 import com.github.florian.utils.StringFormatter;
@@ -41,12 +41,13 @@ public class SimpleArrayLazyNodeGraphProcessor extends AbstractGraphProcessor {
         return StringFormatter.format("[\n{}]\n", buffer.toString());
     }
 
-    protected boolean doProcess(String verticesString, String edgesString, Graph.Desc desc) {
+    protected boolean doProcess(String verticesString, String edgesString, Desc desc) {
         LOG.info("graph vertices:");
         LOG.info("\n" + verticesString);
         LOG.info("graph edges:");
         LOG.info("\n" + edgesString);
-        LOG.info("visit http://live.yworks.com/yfiles-for-html/2.0/databinding/graphbuilder/index.html and paste the info to view graph");
+        LOG.info(
+            "visit http://live.yworks.com/yfiles-for-html/2.0/databinding/graphbuilder/index.html and paste the info to view graph");
 
         return true;
     }

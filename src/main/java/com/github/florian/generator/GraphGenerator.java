@@ -9,7 +9,4 @@ import com.github.florian.graph.Graph;
  */
 public interface GraphGenerator {
 
-    List<Graph> getGraphList();
-
-    boolean generate();
 }
