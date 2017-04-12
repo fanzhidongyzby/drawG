@@ -5,6 +5,8 @@ package com.github.florian.graph;
  */
 public class Desc {
 
+    private boolean multiple;
+
     private boolean directed;
 
     private boolean layered;
@@ -33,5 +35,13 @@ public class Desc {
 
     public void setOrigin(Point origin) {
         this.origin = origin;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 }

@@ -9,7 +9,7 @@ public class MultiEvenlyGraphGenerator extends MultiGraphGenerator {
     private final int count;
 
     public MultiEvenlyGraphGenerator() {
-        count = Config.getInt("generator.multiple.evenly.count", 5);
+        count = Config.getInt("generator.evenly.count", 5);
         for (int degree = 0; degree < count; degree += (count % 2 + 1)) {
             addGenerator(new EvenlyGraphGenerator(count, degree));
         }

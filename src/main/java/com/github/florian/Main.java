@@ -14,10 +14,10 @@ public class Main {
         GraphProcessor processor = ProcessorFactory.getDefaultProcessor();
 
         MultiGraphGenerator multiGraphGenerator = new MultiGraphGenerator();
-        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(10, 6));
-        multiGraphGenerator.addGenerator(new TreeGraphGenerator(2, 3, 4));
-        multiGraphGenerator.addGenerator(new SparseGraphGenerator(3));
-        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(7, 4));
+        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(22, 3));
+        multiGraphGenerator.addGenerator(new TreeGraphGenerator(3,3,2));
+        multiGraphGenerator.addGenerator(new SparseGraphGenerator(3,3,2,1));
+        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(22, 20));
 
         processor.process(multiGraphGenerator);
     }
@@ -32,8 +32,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        drawSingleGraph();
-        drawMultiGraph();
+        drawSingleGraph();
+//        drawMultiGraph();
 
     }
 }

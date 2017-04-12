@@ -80,6 +80,7 @@ public class VisBasicGraphProcessor extends AbstractGraphProcessor {
         Map<String, String> params = new HashMap<String, String>();
         params.put("nodes", verticesString);
         params.put("edges", edgesString);
+        params.put("physics", String.valueOf(!desc.isMultiple()));
         params.put("directed", String.valueOf(desc.isDirected()));
         params.put("layered", String.valueOf(desc.isLayered()));
 

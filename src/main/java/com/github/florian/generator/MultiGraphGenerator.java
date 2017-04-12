@@ -12,6 +12,10 @@ public class MultiGraphGenerator extends AbstractGraphGenerator {
 
     private List<SingleGraphGenerator> generators = new ArrayList<SingleGraphGenerator>();
 
+    public MultiGraphGenerator() {
+        super.desc.setMultiple(true);
+    }
+
     public void addGenerator(SingleGraphGenerator generator) {
         if (generator != null) {
             generators.add(generator);

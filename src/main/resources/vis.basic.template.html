@@ -7,7 +7,7 @@
         body{
             text-align:center;
         }
-        #canvas1 {
+        #no-canvas {
             margin:0 auto;
             width: 600px;
             height: 600px;
@@ -39,31 +39,30 @@ ${edges}
     };
 
     var options = {
-        physics:false,
+        physics:${physics},
         nodes: {
             color: 'black',
             font: {
                 color: 'white',
-                align: 'right',
+                align: 'right'
             },
             shape: 'circle',
-            shadow: true,
+            shadow: true
         },
         edges: {
             smooth: false,
             arrows: {
-//                to: true,
-//                to: ${directed},
+                to: ${directed}
             }
         },
-//        layout:{
-//            randomSeed: 0,
-//            improvedLayout: true,
-//            hierarchical: {
-//                enabled: ${layered},
-//                sortMethod: 'directed',
-//            }
-//        }
+        layout:{
+            randomSeed: 0,
+            improvedLayout: true,
+            hierarchical: {
+                enabled: ${layered},
+                sortMethod: 'directed'
+            }
+        }
     };
 
     // initialize your network!
