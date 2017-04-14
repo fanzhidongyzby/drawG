@@ -13,8 +13,7 @@ public class DefaultGraphExample implements Example {
     public void draw() {
         GraphProcessor processor = ProcessorFactory.getDefaultProcessor();
 
-//        GraphGenerator generator = GeneratorFactory.getDefaultGenerator();
-        GraphGenerator generator = new TreeGraphGenerator();
+        GraphGenerator generator = GeneratorFactory.getDefaultGenerator();
 
         processor.process(generator);
     }

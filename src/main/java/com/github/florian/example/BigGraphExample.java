@@ -15,10 +15,10 @@ public class BigGraphExample implements Example {
         GraphProcessor processor = ProcessorFactory.getDefaultProcessor();
 
         MultiGraphGenerator multiGraphGenerator = new MultiGraphGenerator();
-        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(22, 3));
-        multiGraphGenerator.addGenerator(new TreeGraphGenerator(3, 3, 2));
-        multiGraphGenerator.addGenerator(new SparseGraphGenerator(3, 3, 2, 1));
-        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(22, 20));
+        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(141, 4));
+        multiGraphGenerator.addGenerator(new TreeGraphGenerator(3, 20, 2));
+        multiGraphGenerator.addGenerator(new SparseGraphGenerator(3, 20, 2, 10));
+        multiGraphGenerator.addGenerator(new EvenlyGraphGenerator(141, 20));
 
         processor.process(multiGraphGenerator);
     }
