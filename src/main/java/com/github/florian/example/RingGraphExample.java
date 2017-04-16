@@ -11,7 +11,7 @@ import com.github.florian.processor.VisBasicGraphProcessor;
  */
 public class RingGraphExample implements Example {
     public void draw() {
-        GraphProcessor processor = new VisBasicGraphProcessor(2);
+        GraphProcessor processor = new VisBasicGraphProcessor(1);
         MultiGraphGenerator generators = new MultiGraphGenerator();
         for (int i = 3; i <= 6; i++) {
             SingleGraphGenerator generator = new EvenlyGraphGenerator(i, 2);
