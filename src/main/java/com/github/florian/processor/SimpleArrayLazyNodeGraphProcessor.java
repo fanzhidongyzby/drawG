@@ -2,16 +2,17 @@ package com.github.florian.processor;
 
 import java.util.List;
 
-import com.github.florian.graph.Desc;
-import com.github.florian.graph.Edge;
-import com.github.florian.graph.Point;
-import com.github.florian.graph.Vertex;
+import com.github.florian.graph.*;
 import com.github.florian.utils.StringFormatter;
 
 /**
  * Created by zhidong.fzd on 17/2/15.
  */
 public class SimpleArrayLazyNodeGraphProcessor extends AbstractGraphProcessor {
+
+    protected Size getSize(int verticesCount) {
+        return new Size();
+    }
 
     @Override
     protected String getVerticesString(List<Vertex> vertices, Point origin) {

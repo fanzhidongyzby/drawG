@@ -13,6 +13,8 @@ public class Desc {
 
     private Point   origin = new Point();
 
+    private Size    size   = new Size();
+
     public boolean isDirected() {
         return directed;
     }
@@ -43,5 +45,13 @@ public class Desc {
 
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
     }
 }

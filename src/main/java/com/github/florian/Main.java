@@ -1,7 +1,7 @@
 package com.github.florian;
 
-import com.github.florian.example.DefaultGraphExample;
 import com.github.florian.example.Example;
+import com.github.florian.factory.ExampleFactory;
 
 /**
  * Created by zhidong.fzd on 17/4/10.
@@ -9,7 +9,7 @@ import com.github.florian.example.Example;
 public class Main {
 
     public static void main(String[] args) {
-        Example example = new DefaultGraphExample();
+        Example example = ExampleFactory.getDefaultExample();
         example.draw();
     }
 }

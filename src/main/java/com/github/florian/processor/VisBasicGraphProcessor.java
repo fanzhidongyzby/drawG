@@ -4,10 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.florian.graph.Desc;
-import com.github.florian.graph.Edge;
-import com.github.florian.graph.Point;
-import com.github.florian.graph.Vertex;
+import com.github.florian.graph.*;
 import com.github.florian.utils.Config;
 import com.github.florian.utils.StringFormatter;
 import com.github.florian.utils.TemplateProcessor;
@@ -17,27 +14,37 @@ import com.github.florian.utils.TemplateProcessor;
  */
 public class VisBasicGraphProcessor extends AbstractGraphProcessor {
 
-    private void rePosition(int verticesCount, int edgeLength, Point origin) {
+    public VisBasicGraphProcessor() {
+    }
+
+    public VisBasicGraphProcessor(int rowCount) {
+        this.rowCount = rowCount;
+    }
+
+    @Override
+    protected Size getSize(int verticesCount) {
+        final double radios = getRadios(verticesCount);
+        return new Size(radios * 2, radios * 2);
+    }
+
+    private double getRadios(int verticesCount) {
         if (verticesCount == 0) {
-            return;
+            return 0;
         }
-        double pi = Math.PI;
-        int n = verticesCount;
-        int l = edgeLength;
-        double r = l / 2 / Math.sin(pi / n);
+        return edgeLength / 2 / Math.sin(Math.PI / verticesCount);
+    }
+
+    private void rePosition(int verticesCount, Point origin) {
+        double r = getRadios(verticesCount);
         origin.setX(origin.getX() + r * 2);
         origin.setY(origin.getY() + r * 2);
     }
 
-    private String getPosition(int verticesCount, int edgeLength, int index, Point origin) {
-        double pi = Math.PI;
-        int n = verticesCount;
-        int l = edgeLength;
-        double r = l / 2 / Math.sin(pi / n);
-        double init = (n % 2 != 0) ? pi / 2 : pi / 2 - pi / n;
-        double angle = init - 2 * pi / n * index;
-        double y = -Math.sin(angle) * r + origin.getY() + r;
-        double x = Math.cos(angle) * r + origin.getX() + r;
+    private String getPosition(int verticesCount, int index, Point origin) {
+        double radios = getRadios(verticesCount);
+        double angle = Math.PI / 2 - 2 * Math.PI / verticesCount * index;
+        double y = -Math.sin(angle) * radios + origin.getY();
+        double x = Math.cos(angle) * radios + origin.getX();
         return "x: " + x + ", y:" + y;
     }
 
@@ -45,18 +52,14 @@ public class VisBasicGraphProcessor extends AbstractGraphProcessor {
     protected String getVerticesString(List<Vertex> vertices, Point origin) {
         StringBuffer buffer = new StringBuffer();
         final int vertexCount = vertices.size();
-        int edgeLength = Config.getInt("processor.vis.basic.edge.length", 100);
 
         int i = 0;
         for (Vertex vertex : vertices) {
             final String key = vertex.getKey();
             final String value = (String) vertex.getValue();
             buffer.append(StringFormatter.format("                {id: '{}', label: '{}', {}},\n",
-                key, value, getPosition(vertexCount, edgeLength, i++, origin)));
+                key, value, getPosition(vertexCount, i++, origin)));
         }
-
-        // reset origin
-        rePosition(vertexCount, edgeLength, origin);
 
         return buffer.toString();
     }

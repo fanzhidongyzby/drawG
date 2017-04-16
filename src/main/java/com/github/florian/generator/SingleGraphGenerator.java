@@ -76,13 +76,14 @@ public abstract class SingleGraphGenerator extends AbstractGraphGenerator {
 
         if (!ok) {
             LOG.error("generate graph failed");
+            return null;
         } else {
             int verticesCount = graph.getVertices().size();
             int edgesCount = graph.getEdges().size();
             LOG.info(verticesCount + " vertices and " + edgesCount + " edges generated, use "
                      + watch.getTime() + " ms");
+            return graph;
         }
-        return graph;
     }
 
 }
