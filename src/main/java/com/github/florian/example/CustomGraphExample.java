@@ -12,7 +12,7 @@ public class CustomGraphExample implements Example {
     public void draw() {
         GraphProcessor processor = ProcessorFactory.getDefaultProcessor();
 
-        GraphGenerator generator = new CustomGraphGenerator().addEdge("1", "2").addEdge("1", "3")
+        CustomGraphGenerator generator = new CustomGraphGenerator().addEdge("1", "2").addEdge("1", "3")
             .addEdge("1", "4").addEdge("2", "3").addEdge("2", "4").addEdge("3", "4")
             .addEdge("4", "5").addEdge("4", "6").addEdge("5", "6").addEdge("5", "7")
             .addEdge("6", "7").addEdge("1", "2").addEdge("1", "3").addEdge("2", "3")

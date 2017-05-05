@@ -16,10 +16,6 @@ public class CustomGraphGenerator extends SingleGraphGenerator {
     private Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
     private Map<String, Map<String, Edge>> edgeMap = new HashMap<String, Map<String, Edge>>();
 
-    public CustomGraphGenerator() {
-        desc.setDirected(true);
-    }
-
     private Vertex getVertex(String value) {
         if (StringUtils.isBlank(value)) {
             throw new RuntimeException("Invalid vertex");
