@@ -1,6 +1,7 @@
 package com.github.florian.generator;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.github.florian.graph.Edge;
@@ -13,8 +14,11 @@ import com.github.florian.graph.Vertex;
  */
 public class CustomGraphGenerator extends SingleGraphGenerator {
 
+    private Map<String, HashSet<String>> vertexGroups = new HashMap<String, HashSet<String>>();
     private Map<String, Vertex> vertexMap = new HashMap<String, Vertex>();
     private Map<String, Map<String, Edge>> edgeMap = new HashMap<String, Map<String, Edge>>();
+
+    private boolean ignoreValue = false;
 
     private Vertex getVertex(String value) {
         if (StringUtils.isBlank(value)) {
@@ -22,10 +26,30 @@ public class CustomGraphGenerator extends SingleGraphGenerator {
         }
 
         if (!vertexMap.containsKey(value)) {
-            final Vertex vertex = genVertex(value);
+            Vertex vertex = null;
+            if (ignoreValue) {
+                vertex = genVertex();
+            } else {
+                vertex = genVertex(value);
+            }
             vertexMap.put(value, vertex);
         }
         return vertexMap.get(value);
+    }
+
+    public CustomGraphGenerator setGroup(String group, String ... ids) {
+        if (!vertexGroups.containsKey(group)) {
+            vertexGroups.put(group, new HashSet<String>());
+        }
+        for (String id : ids) {
+            vertexGroups.get(group).add(id);
+        }
+        return this;
+    }
+
+    public CustomGraphGenerator ignoreValue() {
+        this.ignoreValue = true;
+        return this;
     }
 
     public CustomGraphGenerator addEdge(long source, long target) {
@@ -57,6 +81,14 @@ public class CustomGraphGenerator extends SingleGraphGenerator {
 
     @Override
     protected boolean doGenerate() {
+        for (String group : vertexGroups.keySet()) {
+            final HashSet<String> ids = vertexGroups.get(group);
+            for (String id : ids) {
+                if(vertexMap.containsKey(id)) {
+                    vertexMap.get(id).setCategory(group);
+                }
+            }
+        }
         return true;
     }
 }

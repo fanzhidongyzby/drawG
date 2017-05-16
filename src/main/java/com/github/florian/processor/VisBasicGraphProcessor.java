@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.florian.graph.*;
+import com.github.florian.graph.Color;
+import com.github.florian.graph.Desc;
+import com.github.florian.graph.Edge;
+import com.github.florian.graph.Point;
+import com.github.florian.graph.Size;
+import com.github.florian.graph.Vertex;
 import com.github.florian.utils.Config;
 import com.github.florian.utils.StringFormatter;
 import com.github.florian.utils.TemplateProcessor;
@@ -14,11 +19,23 @@ import com.github.florian.utils.TemplateProcessor;
  */
 public class VisBasicGraphProcessor extends AbstractGraphProcessor {
 
+    private HashMap<String, Color> colorMap = new HashMap<String, Color>();
+
     public VisBasicGraphProcessor() {
     }
 
     public VisBasicGraphProcessor(int rowCount) {
         this.rowCount = rowCount;
+    }
+
+    private Color getColor(String category) {
+        if (category == null) {
+            return Color.BLACK;
+        }
+        if (!colorMap.containsKey(category)) {
+            colorMap.put(category, new Color());
+        }
+        return colorMap.get(category);
     }
 
     @Override
@@ -57,8 +74,11 @@ public class VisBasicGraphProcessor extends AbstractGraphProcessor {
         for (Vertex vertex : vertices) {
             final String key = vertex.getKey();
             final String value = (String) vertex.getValue();
-            buffer.append(StringFormatter.format("                {id: '{}', label: '{}', {}},\n",
-                key, value, getPosition(vertexCount, i++, origin)));
+            final String category = vertex.getCategory();
+
+            buffer.append(StringFormatter.format(
+                "                {id: '{}', label: '{}', {}, color: '{}'},\n", key, value,
+                getPosition(vertexCount, i++, origin), getColor(category)));
         }
 
         return buffer.toString();

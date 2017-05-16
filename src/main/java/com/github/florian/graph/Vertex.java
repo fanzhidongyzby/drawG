@@ -9,6 +9,8 @@ public class Vertex {
 
     Object value;
 
+    String category;
+
     public Vertex(String key) {
         this(key, null);
     }
@@ -34,8 +36,17 @@ public class Vertex {
         this.value = value;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return "Vertex{" + "key='" + key + '\'' + ", value=" + value + '}';
+        return "Vertex{" + "key='" + key + '\'' + ", value=" + value + ", category='" + category
+               + '\'' + '}';
     }
 }

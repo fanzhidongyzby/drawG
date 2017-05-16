@@ -1,5 +1,7 @@
 package com.github.florian.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -15,6 +17,20 @@ public class FileUtil {
         String EOF = new String(new char[] { 0xff });
         if (stream != null) {
             return new Scanner(stream).useDelimiter(EOF).next();
+        }
+
+        return null;
+    }
+
+    public static String readFileAsString(String fileName) {
+        try {
+            InputStream stream = new FileInputStream(new File(fileName));
+            String EOF = new String(new char[] { 0xff });
+            if (stream != null) {
+                return new Scanner(stream).useDelimiter(EOF).next();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
         return null;
