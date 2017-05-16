@@ -1,5 +1,6 @@
 package com.github.florian.processor;
 
+import com.github.florian.generator.EvenlyGraphGenerator;
 import com.github.florian.graph.Point;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +24,7 @@ public class VisBasicGraphProcessorTest {
         final Edge edge1 = new Edge(vertex1, vertex2, "", "1");
         final Edge edge2 = new Edge(vertex1, vertex2, "", "2");
 
-        final Graph graph = new Graph("g");
+        graph = new Graph("g");
         graph.getVertices().add(vertex1);
         graph.getVertices().add(vertex2);
         graph.getEdges().add(edge1);
