@@ -21,6 +21,7 @@ public class DataSetGraphExample implements Example {
             for (int i = 0; i < ids.length; i++) {
                 String id = ids[i];
                 if (id.contains(":")) {
+                    final String[] splits = id.split(":");
                     String category = StringUtils.substringBefore(id, ":");
                     ids[i] = StringUtils.substringAfter(id, ":");
                     generator.setGroup(category, ids[i]);
