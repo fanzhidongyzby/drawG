@@ -5,6 +5,7 @@ import com.github.florian.generator.CustomGraphGenerator;
 import com.github.florian.processor.GraphProcessor;
 import com.github.florian.utils.Config;
 import com.github.florian.utils.FileUtil;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by zhidong.fzd on 17/4/12.
@@ -20,9 +21,8 @@ public class DataSetGraphExample implements Example {
             for (int i = 0; i < ids.length; i++) {
                 String id = ids[i];
                 if (id.contains(":")) {
-                    final String[] splits = id.split(":");
-                    String category = splits[0];
-                    ids[i] = splits[1];
+                    String category = StringUtils.substringBefore(id, ":");
+                    ids[i] = StringUtils.substringAfter(id, ":");
                     generator.setGroup(category, ids[i]);
                 }
             }
